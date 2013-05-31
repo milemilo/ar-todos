@@ -1,9 +1,6 @@
 class List < ActiveRecord::Base
   has_many :tasks
 
-  def self.create(task_name)
-  end
-
   def self.list(args = [1])
     list =[]
     todo = List.find(args.first)
@@ -11,10 +8,16 @@ class List < ActiveRecord::Base
     "#{todo.name.capitalize} TODO List:\n\n" + list.join("\n")
   end
 
-  def self.update(id, task_name)
+  def self.add(input)
+    task_name = input.join(' ')
+    List.find(1).tasks.create(name: task_name)
+    "You've added a task! #{task_name}"
   end
 
-  def self.complete(id)
+  def self.complete(ids)
+    task_id = List.find(1).tasks[ids.first.to_i-1].id
+    Task.find(task_id).update_attributes(completed: !Task.find(task_id).completed)
+    "You've just toggled task ##{ids.first} "
   end
 
   def self.delete(ids)
