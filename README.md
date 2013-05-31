@@ -1,5 +1,5 @@
 # ActiveRecord TODOs
-
+JASON AND LUKAS WERE HERE
 ## Before You Get Started
 
 Before you get started...
