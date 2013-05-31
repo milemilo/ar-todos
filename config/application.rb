@@ -23,5 +23,9 @@ Dir[APP_ROOT.join('app', 'models', '*.rb')].each do |model_file|
   autoload ActiveSupport::Inflector.camelize(filename), model_file
 end
 
+
+# Require all the controller files, just like the above
+# requires all the model files.
+
 ActiveRecord::Base.establish_connection :adapter  => 'sqlite3',
                                         :database => DB_PATH
