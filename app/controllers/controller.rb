@@ -1,5 +1,5 @@
 class Controller
-  attr_reader :list
+  attr_reader :list, :command
  
   def initialize
     argv_parser
@@ -10,7 +10,7 @@ class Controller
   def argv_parser
     argv_entry = ARGV
     @command = argv_entry.shift
-    @task = argv_entry.join(" ")
+    @task = argv_entry
   end
  
   def send_command

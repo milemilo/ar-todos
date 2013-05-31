@@ -1,21 +1,26 @@
 class List < ActiveRecord::Base
   has_many :tasks
 
-  def create(task_name)
+  def self.create(task_name)
   end
 
-  def self.list(*args)
+  def self.list(args = [1])
     list =[]
-    List.all.each {|task| list << "Task##{task.id}: #{task.name}"}
-    list.join("\n")
+    todo = List.find(args.first)
+    todo.tasks.each_with_index {|task, i| list << "[#{task.completed ? "X" : " "}] #{i+1}: #{task.name}"}
+    "#{todo.name.capitalize} TODO List:\n\n" + list.join("\n")
   end
 
-  def update(id, task_name)
+  def self.update(id, task_name)
   end
 
-  def complete(id)
+  def self.complete(id)
   end
 
-  def delete(id)
+  def self.delete(ids)
+    task_id = List.find(1).tasks[ids.first.to_i-1].id
+    return_string = "Deleted: #{Task.find(task_id).name}"
+    Task.delete(task_id)
+    return_string
   end
 end
